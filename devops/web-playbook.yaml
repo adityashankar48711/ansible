@@ -1,6 +1,5 @@
 ---
-- name: excuting the operation
-  hosts: all
+- hosts: all
   become: yes
   become_method: sudo
   
