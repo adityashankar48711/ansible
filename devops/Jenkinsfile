@@ -9,45 +9,7 @@ node {
 	 
  def project_path="devops/"
  
- dir(project_path) {
-    
-  stage('Maven-Clean') {
-   sh label: 'CLEAN', script: 'mvn clean'
-  }
-    
- stage('Maven-Compile') {
-   sh label: 'COMPILE', script: 'mvn compile'
-  }
-
-  
-   stage('Maven-Test') {
-   sh label: 'TEST', script: 'mvn test'
-  }
-  
-   stage('Maven-Package') {
-   sh label: 'PACKAGE', script: 'mvn package'
-  }
-	 
- stage('Sonar Analysis'){
-        withSonarQubeEnv('SonarQube'){
-         sh 'mvn sonar:sonar'
-        }
-        }
-  
-  
-   stage('Jfrog Artifacory Upload') {
-        def server= Artifactory.server 'Artifactory'
-                    def uploadSpec= """{
-                        "files": [{
-                        "pattern": "/root/.jenkins/workspace/Devops_Final_Demo/devops/target/*.war",
-                        "target": "petclinic"}]
-                    }"""
-        server.upload(uploadSpec)
-        
-        }
-     
- 
-	 
+ dir(project_path) {	 
 
   stage('Geting Ready For Ansible') {
   sh label: 'Jenkins', script: "echo '<h1> TASK BUILD ID: ${env.BUILD_DISPLAY_NAME}</h1>' > index.html"
