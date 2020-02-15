@@ -16,7 +16,7 @@ node {
 }  
 
 stage('Executing Ansible') {
-  sh label: 'Jenkins', script: "ansible-playbook --key=/root/.jenkins/.ssh/awskey.pem -u ubuntu web-playbook.yaml  -vvv"
+  sh label: 'Jenkins', script: "ansible-playbook --key=/root/.ssh/awskey.pem -u ubuntu web-playbook.yaml  -vvv"
 }  
    
 }
