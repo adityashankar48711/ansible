@@ -9,7 +9,22 @@ node {
 	 
  def project_path="devops/"
  
- dir(project_path) {	 
+ dir(project_path) {	
+	 
+stage('Jfrog Artifactory download'){
+    def server= Artifactory.server 'Artifactory'
+    def downloadSpec = """{
+    "files": [
+    {
+      "pattern": "petclinic/*.war",
+      "target": "/home/mtadminnuvepro/artifacts/"
+      
+    }
+    ]
+    }"""
+    server.download(downloadSpec)
+   
+}
 
   stage('Geting Ready For Ansible') {
   sh label: 'Jenkins', script: "echo '<h1> TASK BUILD ID: ${env.BUILD_DISPLAY_NAME}</h1>' > index.html"
